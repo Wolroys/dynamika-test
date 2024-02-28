@@ -3,6 +3,7 @@ package com.dynamika.service;
 import com.dynamika.dto.BookDto;
 import com.dynamika.dto.UserDto;
 import com.dynamika.entity.Book;
+import com.dynamika.dto.BookUserDto;
 import com.dynamika.entity.User;
 import com.dynamika.mapper.BookMapper;
 import com.dynamika.mapper.UserMapper;
@@ -101,6 +102,24 @@ public class BookService {
                             return bookMapper.map(bookRepository.save(book), BookDto.class);
                         }).orElse(null)
         );
+    }
+
+    public List<BookUserDto> findAllReadingBooks() {
+        List<Book> books = bookRepository.findAllByOwnerIsNotNull();
+
+        return books.stream()
+                .map(book -> {
+                    User owner = book.getOwner();
+                    return new BookUserDto(
+                            owner.getFullName(),
+                            owner.getBirthday(),
+                            book.getTitle(),
+                            book.getAuthor(),
+                            book.getIsbn(),
+                            book.getTakenAt()
+                    );
+                })
+                .collect(Collectors.toList());
     }
 }
 

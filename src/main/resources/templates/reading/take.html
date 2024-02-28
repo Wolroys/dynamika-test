@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Take Book</title>
+</head>
+<body>
+<h1>Take Book</h1>
+<form th:action="@{/reading/take/{bookId}(bookId=${bookId})}" method="post">
+    <label for="clientFullName">Client Full Name:</label>
+    <input type="text" id="clientFullName" name="clientFullName" required/>
+    <br/>
+    <button type="submit">Take Book</button>
+</form>
+<a th:href="@{/reading}">Back to reading books</a>
+</body>
+</html>

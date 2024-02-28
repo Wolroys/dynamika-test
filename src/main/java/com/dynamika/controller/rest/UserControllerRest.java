@@ -1,4 +1,4 @@
-package com.dynamika.controller;
+package com.dynamika.controller.rest;
 
 import com.dynamika.dto.UserDto;
 import com.dynamika.service.UserService;
@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UserController {
+public class UserControllerRest {
 
     private final UserService userService;
 

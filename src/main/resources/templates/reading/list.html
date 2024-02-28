@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reading Books</title>
+</head>
+<body>
+<h1>Reading Books</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Book</th>
+        <th>Client</th>
+        <th>Taken At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${readingBooks}">
+        <td th:text="${book.book.title}"></td>
+        <td th:text="${book.user.fullName}"></td>
+        <td th:text="${book.takenAt}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/}">Back to main page</a>
+</body>
+</html>

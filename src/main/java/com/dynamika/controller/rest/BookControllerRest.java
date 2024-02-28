@@ -1,6 +1,7 @@
-package com.dynamika.controller;
+package com.dynamika.controller.rest;
 
 import com.dynamika.dto.BookDto;
+import com.dynamika.dto.BookUserDto;
 import com.dynamika.dto.UserDto;
 import com.dynamika.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/books")
-public class BookController {
+public class BookControllerRest {
 
     private final BookService bookService;
 
@@ -46,7 +47,7 @@ public class BookController {
     @DeleteMapping("/{id}")
     public CompletableFuture<ResponseEntity<Void>> deleteBook(@PathVariable Long id){
         return bookService.deleteBook(id)
-                .thenApply(aBoolean -> aBoolean ? ResponseEntity.ok().<Void>build() : ResponseEntity.notFound().<Void>build());
+                .thenApply(aBoolean -> aBoolean ? ResponseEntity.ok().build() : ResponseEntity.notFound().<Void>build());
     }
 
     @PostMapping("/{id}/take")
@@ -60,5 +61,13 @@ public class BookController {
         return bookService.releaseBook(id)
                 .thenApply(bookDto -> bookDto != null ? ResponseEntity.ok(bookDto) : ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/reading-clients")
+    public ResponseEntity<List<BookUserDto>> getAllReadingClients() {
+        List<BookUserDto> readingClients = bookService.findAllReadingBooks();
+        return ResponseEntity.ok(readingClients);
+    }
+
+
 }
 
